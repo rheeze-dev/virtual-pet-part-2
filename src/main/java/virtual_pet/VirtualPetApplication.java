@@ -50,22 +50,22 @@ public class VirtualPetApplication {
                 System.out.println();
                 if (food == 1) {
                     System.out.println("Bananas are Mali's favorite food.");
-                    virtualPet.feed(30);
+                    System.out.println(virtualPet.feed(30));
                 } else if (food == 2) {
                     System.out.println("Insects are Mali's 2nd favorite food.");
-                    virtualPet.feed(20);
+                    System.out.println(virtualPet.feed(20));
                 } else if (food == 3) {
                     System.out.println("Snails are Mali's worst food. Mali refused to eat it.");
                 } else
                     continue;
             } else if (toDo == 2)
-                virtualPet.hydrate(20);
+                System.out.println(virtualPet.hydrate(20));
             else if (toDo == 3)
-                virtualPet.rest(20);
+                System.out.println(virtualPet.rest(20));
             else if (toDo == 4)
-                virtualPet.play(20);
+                System.out.println(virtualPet.play(20));
             else if (toDo == 5)
-                virtualPet.heal(20);
+                System.out.println(virtualPet.heal(20));
             else if (toDo == 6)
                 System.out.println("Did nothing.");
             else {
