@@ -10,8 +10,7 @@ public class VirtualPetApplication {
         System.out.println("Mali the monkey");
         while (virtualPet.getHunger() <= 100 && virtualPet.getThirst() <= 100 && virtualPet.getTiredness() <= 100
                 && virtualPet.getBoredom() <= 100 && virtualPet.getSickness() <= 100) {
-            virtualPet.displayStats();
-            System.out.println();
+            System.out.println(virtualPet.displayStats());
             System.out.println("What do you want to do?");
             System.out.println("1. Give food to Mali");
             System.out.println("2. Give water to Mali");
@@ -50,22 +49,22 @@ public class VirtualPetApplication {
                 System.out.println();
                 if (food == 1) {
                     System.out.println("Bananas are Mali's favorite food.");
-                    virtualPet.feed(30);
+                    System.out.println(virtualPet.feed(30));
                 } else if (food == 2) {
                     System.out.println("Insects are Mali's 2nd favorite food.");
-                    virtualPet.feed(20);
+                    System.out.println(virtualPet.feed(20));
                 } else if (food == 3) {
                     System.out.println("Snails are Mali's worst food. Mali refused to eat it.");
                 } else
                     continue;
             } else if (toDo == 2)
-                virtualPet.hydrate(20);
+                System.out.println(virtualPet.hydrate(20));
             else if (toDo == 3)
-                virtualPet.rest(20);
+                System.out.println(virtualPet.rest(20));
             else if (toDo == 4)
-                virtualPet.play(20);
+                System.out.println(virtualPet.play(20));
             else if (toDo == 5)
-                virtualPet.heal(20);
+                System.out.println(virtualPet.heal(20));
             else if (toDo == 6)
                 System.out.println("Did nothing.");
             else {
@@ -73,6 +72,7 @@ public class VirtualPetApplication {
                 break;
             }
             virtualPet.tick();
+            System.out.println(virtualPet.performPriorityNeed());
         }
         if (virtualPet.getHunger() >= 100)
             System.out.println("Mali starved!");
@@ -85,14 +85,7 @@ public class VirtualPetApplication {
         else if (virtualPet.getSickness() >= 100)
             System.out.println("Mali got soo sick!");
 
-        System.out.println("      __");
-        System.out.println(" w  c(..)o   (");
-        System.out.println("  \\__(-)    __)");
-        System.out.println("      /\\   (");
-        System.out.println("     /(_)___)");
-        System.out.println("    w /|");
-        System.out.println("      | \\");
-        System.out.println("      m  m");
+        System.out.println(virtualPet.displayPet());
         scanner.close();
     }
 }
