@@ -56,7 +56,6 @@ public class VirtualPet {
         setTiredness(getTiredness() + 3);
         setBoredom(getBoredom() + 3);
         setSickness(getSickness() + 3);
-        performPriorityNeed();
     }
 
     public String feed(int value) {
@@ -143,9 +142,8 @@ public class VirtualPet {
         if (value == 20)
             return "You made Mali feel better.";
         else {
-            if (getSickness() <= 100) {
+            if (getSickness() <= 100)
                 return "Mali self medicated.\n";
-            }
             return "";
         }
     }
@@ -156,7 +154,7 @@ public class VirtualPet {
                 "%     " + "Sickness: " + getSickness() + "%\n";
     }
 
-    private void performPriorityNeed() {
+    public String performPriorityNeed() {
         int[] arr = { getHunger(), getThirst(), getTiredness(), getBoredom(), getSickness() };
         int max = 0;
         int index = 0;
@@ -166,16 +164,27 @@ public class VirtualPet {
                 index = i;
             }
         }
-        if (index == 0) {
-            feed(5);
-        } else if (index == 1) {
-            hydrate(5);
-        } else if (index == 2) {
-            rest(5);
-        } else if (index == 3) {
-            play(5);
-        } else {
-            heal(5);
-        }
+        if (index == 0)
+            return feed(5);
+        else if (index == 1)
+            return hydrate(5);
+        else if (index == 2)
+            return rest(5);
+        else if (index == 3)
+            return play(5);
+        else
+            return heal(5);
+    }
+
+    public String displayPet() {
+        String pet = "      __\n" +
+                " w  c(..)o   (\n" +
+                "  \\__(-)    __)\n" +
+                "      /\\   (\n" +
+                "     /(_)___)\n" +
+                "    w /|\n" +
+                "      | \\\n" +
+                "      m  m";
+        return pet;
     }
 }
