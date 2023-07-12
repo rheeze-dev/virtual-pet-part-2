@@ -8,7 +8,24 @@ public class VirtualPet {
     private int tiredness = 20;
     private int boredom = 20;
     private int sickness = 10;
+    private String name;
+    private String description;
     Random random = new Random();
+
+    public VirtualPet(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public VirtualPet(String name, String description, int hunger, int thirst, int tiredness, int boredom,
+            int sickness) {
+        this.name = name;
+        this.description = description;
+        this.hunger = hunger;
+        this.thirst = thirst;
+        this.tiredness = tiredness;
+        this.boredom = boredom;
+    }
 
     public int getHunger() {
         return this.hunger;
