@@ -76,19 +76,25 @@ public class VirtualPetShelterApp {
             else if (toDo == 6)
                 System.out.println("Did nothing.");
             else if (toDo == 7) {
-                System.out.print("Press 1 to use default values or press 2 to specify values: ");
-                int values = scanner.nextInt();
-                if (values == 1) {
+                System.out.print(
+                        "Press 1 to specify all stats, press 0 to discontinue the rescue process or press any number except 1 and 0 to use default stats: ");
+                while (!scanner.hasNextInt()) {
+                    System.out.println("Please enter a number!");
+                    System.out.print("> ");
+                    scanner.next();
+                }
+                int input = scanner.nextInt();
+                if (input == 1) {
                     System.out.print("Please enter Pet's name: ");
-                    String name = scanner.next();
-                    String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-                    System.out.print("Please enter Pet's description: ");
-                    String description = scanner.next();
-                    pets.addPet(formattedName, description);
-                } else {
-                    System.out.print("Please enter Pet's name: ");
-                    String name = scanner.next();
-                    String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+                    String name;
+                    String formattedName;
+                    while (true) {
+                        name = scanner.next();
+                        formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+                        if (!pets.hasPetName(formattedName))
+                            break;
+                        System.out.print("Pet name already exist! Please enter a different name: ");
+                    }
                     System.out.print("Please enter Pet's description: ");
                     String description = scanner.next();
                     System.out.print("Please enter Pet's hunger level (any number from 0 to 99): ");
@@ -103,6 +109,23 @@ public class VirtualPetShelterApp {
                     int sickness = scanner.nextInt();
                     System.out.println();
                     pets.addPet(formattedName, description, hunger, thirst, tiredness, boredom, sickness);
+                } else if (input == 0) {
+                    System.out.println("You have discontinued the rescue process.\n");
+                    continue;
+                } else {
+                    System.out.print("Please enter Pet's name: ");
+                    String name;
+                    String formattedName;
+                    while (true) {
+                        name = scanner.next();
+                        formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+                        if (!pets.hasPetName(formattedName))
+                            break;
+                        System.out.print("Pet name already exist! Please enter a different name: ");
+                    }
+                    System.out.print("Please enter Pet's description: ");
+                    String description = scanner.next();
+                    pets.addPet(formattedName, description);
                 }
             } else if (toDo == 8) {
                 for (VirtualPet pet : pets.getAllPets()) {
