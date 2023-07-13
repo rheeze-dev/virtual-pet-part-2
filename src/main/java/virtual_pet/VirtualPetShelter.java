@@ -28,7 +28,7 @@ public class VirtualPetShelter {
 
     public String feedAll(int value) {
         StringBuilder str = new StringBuilder();
-        for (VirtualPet pet : pets.values()) {
+        for (VirtualPet pet : getAllPets()) {
             str.append(pet.feed(value) + "\n");
         }
         return str.toString();
@@ -36,7 +36,7 @@ public class VirtualPetShelter {
 
     public String hydrateAll() {
         StringBuilder str = new StringBuilder();
-        for (VirtualPet pet : pets.values()) {
+        for (VirtualPet pet : getAllPets()) {
             str.append(pet.hydrate(20) + "\n");
         }
         return str.toString();
@@ -44,7 +44,7 @@ public class VirtualPetShelter {
 
     public String restAll() {
         StringBuilder str = new StringBuilder();
-        for (VirtualPet pet : pets.values()) {
+        for (VirtualPet pet : getAllPets()) {
             str.append(pet.rest(20) + "\n");
         }
         return str.toString();
@@ -52,7 +52,7 @@ public class VirtualPetShelter {
 
     public String playAll() {
         StringBuilder str = new StringBuilder();
-        for (VirtualPet pet : pets.values()) {
+        for (VirtualPet pet : getAllPets()) {
             str.append(pet.play(20) + "\n");
         }
         return str.toString();
@@ -64,20 +64,20 @@ public class VirtualPetShelter {
 
     public String healAll() {
         StringBuilder str = new StringBuilder();
-        for (VirtualPet pet : pets.values()) {
+        for (VirtualPet pet : getAllPets()) {
             str.append(pet.heal(20) + "\n");
         }
         return str.toString();
     }
 
     public void tickAll() {
-        for (VirtualPet pet : pets.values()) {
+        for (VirtualPet pet : getAllPets()) {
             pet.tick();
         }
     }
 
     public boolean areValuesLessThan100() {
-        for (VirtualPet pet : pets.values()) {
+        for (VirtualPet pet : getAllPets()) {
             if (pet.getHunger() >= 100 || pet.getThirst() >= 100 ||
                     pet.getTiredness() >= 100 || pet.getBoredom() >= 100 || pet.getSickness() >= 100) {
                 return false;
@@ -87,7 +87,7 @@ public class VirtualPetShelter {
     }
 
     public String displayMessage() {
-        for (VirtualPet pet : pets.values()) {
+        for (VirtualPet pet : getAllPets()) {
             if (pet.getHunger() >= 100)
                 return "Mali starved!";
             else if (pet.getThirst() >= 100)
@@ -104,7 +104,7 @@ public class VirtualPetShelter {
 
     public String performPriorityNeedAll() {
         StringBuilder str = new StringBuilder();
-        for (VirtualPet pet : pets.values()) {
+        for (VirtualPet pet : getAllPets()) {
             str.append(pet.performPriorityNeed() + "\n");
         }
         return str.toString();
@@ -112,7 +112,7 @@ public class VirtualPetShelter {
 
     public String displayStatsAll() {
         StringBuilder str = new StringBuilder();
-        for (VirtualPet pet : pets.values()) {
+        for (VirtualPet pet : getAllPets()) {
             str.append(pet.displayStats() + "\n");
         }
         return str.toString();
