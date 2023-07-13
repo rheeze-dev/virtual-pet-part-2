@@ -76,36 +76,54 @@ public class VirtualPetShelterApp {
             else if (toDo == 6)
                 System.out.println("Did nothing.");
             else if (toDo == 7) {
-                System.out.print("Please enter Pet's name: ");
-                String name = scanner.next();
-                String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-                System.out.print("Please enter Pet's description: ");
-                String description = scanner.next();
-                System.out.print("Please enter Pet's hunger level (any number from 0 to 99): ");
-                int hunger = scanner.nextInt();
-                System.out.print("Please enter Pet's thirst level (any number from 0 to 99): ");
-                int thirst = scanner.nextInt();
-                System.out.print("Please enter Pet's tiredness level (any number from 0 to 99): ");
-                int tiredness = scanner.nextInt();
-                System.out.print("Please enter Pet's boredom level (any number from 0 to 99): ");
-                int boredom = scanner.nextInt();
-                System.out.print("Please enter Pet's sickness level (any number from 0 to 99): ");
-                int sickness = scanner.nextInt();
-                System.out.println();
-                pets.addPet(formattedName, description, hunger, thirst, tiredness, boredom, sickness);
+                System.out.print("Press 1 to use default values or press 2 to specify values: ");
+                int values = scanner.nextInt();
+                if (values == 1) {
+                    System.out.print("Please enter Pet's name: ");
+                    String name = scanner.next();
+                    String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+                    System.out.print("Please enter Pet's description: ");
+                    String description = scanner.next();
+                    pets.addPet(formattedName, description);
+                } else {
+                    System.out.print("Please enter Pet's name: ");
+                    String name = scanner.next();
+                    String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+                    System.out.print("Please enter Pet's description: ");
+                    String description = scanner.next();
+                    System.out.print("Please enter Pet's hunger level (any number from 0 to 99): ");
+                    int hunger = scanner.nextInt();
+                    System.out.print("Please enter Pet's thirst level (any number from 0 to 99): ");
+                    int thirst = scanner.nextInt();
+                    System.out.print("Please enter Pet's tiredness level (any number from 0 to 99): ");
+                    int tiredness = scanner.nextInt();
+                    System.out.print("Please enter Pet's boredom level (any number from 0 to 99): ");
+                    int boredom = scanner.nextInt();
+                    System.out.print("Please enter Pet's sickness level (any number from 0 to 99): ");
+                    int sickness = scanner.nextInt();
+                    System.out.println();
+                    pets.addPet(formattedName, description, hunger, thirst, tiredness, boredom, sickness);
+                }
             } else if (toDo == 8) {
                 for (VirtualPet pet : pets.getAllPets()) {
-                    System.out
-                            .println("Pet name: " + pet.getName() + ", Pet description: " + pet.getDescription());
+                    System.out.println("Pet name: " + pet.getName() + ", Pet description: " + pet.getDescription());
                 }
-                System.out.print("Please enter the name of the pet you want to adopt: ");
-                String name = scanner.next();
-                String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-                pets.adoptPet(formattedName);
-                System.out.println("You have adopted " + formattedName + "\n");
-            }
-
-            else {
+                while (true) {
+                    System.out.print(
+                            "Please enter the name of the pet you want to adopt or press 0 to exit adoption process: ");
+                    String name = scanner.next();
+                    String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+                    if (pets.hasPetName(formattedName)) {
+                        pets.adoptPet(formattedName);
+                        System.out.println("You have adopted " + formattedName + "\n");
+                        break;
+                    }
+                    if (formattedName.equalsIgnoreCase("0")) {
+                        System.out.println("You discontinued the adoption process.\n");
+                        break;
+                    }
+                }
+            } else {
                 System.out.println("The game has been closed!");
                 break;
             }

@@ -16,6 +16,11 @@ public class VirtualPetShelter {
         return pets.get(name);
     }
 
+    public void addPet(String name, String description) {
+        VirtualPet newPet = new VirtualPet(name, description);
+        pets.put(name, newPet);
+    }
+
     public void addPet(String name, String description, int hunger, int thirst, int tiredness, int boredom,
             int sickness) {
         VirtualPet newPet = new VirtualPet(name, description, hunger, thirst, tiredness, boredom, sickness);
@@ -68,6 +73,13 @@ public class VirtualPetShelter {
             str.append(pet.heal(20) + "\n");
         }
         return str.toString();
+    }
+
+    public boolean hasPetName(String name) {
+        if (pets.containsKey(name)) {
+            return true;
+        }
+        return false;
     }
 
     public void tickAll() {
