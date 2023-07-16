@@ -16,15 +16,8 @@ public class VirtualPetShelter {
         return pets.get(name);
     }
 
-    public void addPet(String name, String description) {
-        VirtualPet newPet = new VirtualPet(name, description);
-        pets.put(name, newPet);
-    }
-
-    public void addPet(String name, String description, int hunger, int thirst, int tiredness, int boredom,
-            int sickness) {
-        VirtualPet newPet = new VirtualPet(name, description, hunger, thirst, tiredness, boredom, sickness);
-        pets.put(name, newPet);
+    public void addPet(VirtualPet newPet) {
+        pets.put(newPet.getName(), newPet);
     }
 
     public void adoptPet(String name) {
@@ -64,7 +57,7 @@ public class VirtualPetShelter {
     }
 
     public String playPet(String name) {
-        return getPet(name).play(20);
+        return getPet(name).play(20) + "\n";
     }
 
     public String healAll() {
@@ -90,8 +83,8 @@ public class VirtualPetShelter {
 
     public boolean areValuesLessThan100() {
         for (VirtualPet pet : getAllPets()) {
-            if (pet.getHunger() >= 100 || pet.getThirst() >= 100 ||
-                    pet.getTiredness() >= 100 || pet.getBoredom() >= 100 || pet.getSickness() >= 100) {
+            if (pet.getHunger() >= 100 || pet.getThirst() >= 100 || pet.getTiredness() >= 100 || pet.getBoredom() >= 100
+                    || pet.getSickness() >= 100) {
                 return false;
             }
         }

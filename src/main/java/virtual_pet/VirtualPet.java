@@ -3,11 +3,11 @@ package virtual_pet;
 import java.util.Random;
 
 public class VirtualPet {
-    private int hunger = 30;
-    private int thirst = 30;
-    private int tiredness = 20;
-    private int boredom = 20;
-    private int sickness = 10;
+    private int hunger;
+    private int thirst;
+    private int tiredness;
+    private int boredom;
+    private int sickness;
     private String name;
     private String description;
     Random random = new Random();
@@ -159,7 +159,6 @@ public class VirtualPet {
                 return getName() + " played on his own.";
             }
             return "";
-
         }
     }
 
@@ -179,9 +178,8 @@ public class VirtualPet {
     }
 
     public String displayStats() {
-        return getName() + "\t |" + getHunger() + "%      |" + getThirst() + "%      |" + getTiredness() + "%      |"
-                + getBoredom() +
-                "%      |" + getSickness() + "%      |";
+        return getName() + "\t    |" + getHunger() + "%         |" + getThirst() + "%         |" + getTiredness()
+                + "%         |" + getBoredom() + "%         |" + getSickness() + "%          |";
     }
 
     public String performPriorityNeed() {
