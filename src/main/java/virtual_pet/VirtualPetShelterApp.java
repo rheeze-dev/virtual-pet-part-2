@@ -9,11 +9,8 @@ public class VirtualPetShelterApp {
 
     public static void main(String[] args) {
 
-        // VirtualPetShelter pets = new VirtualPetShelter();
-
         initialPets();
 
-        // Scanner scanner = new Scanner(System.in);
         System.out.println("Status of your pets: ");
         while (pets.areValuesLessThan100()) {
             System.out.println("Name        |Hunger      |Thrist      |Tiredness   |Boredom     |Sickness    |");
@@ -38,7 +35,7 @@ public class VirtualPetShelterApp {
             System.out.println();
             if (toDo == 1) {
                 System.out.println("Choose food you want to feed the pets.");
-                System.out.println("1. Pet foods");
+                System.out.println("1. Pet food");
                 System.out.println("2. Treats");
                 System.out.println("3. Left-overs");
                 System.out.println("Press any number except 1 to 3 to change what you want to do.");
@@ -66,20 +63,10 @@ public class VirtualPetShelterApp {
                         "Press 1 to play with a single pet. Press 2 to play with all the pets. Press any number except 1 and 2 to change what you want to do: ");
                 inputChecker();
                 int input = scanner.nextInt();
-                if (input == 1) {
-                    while (true) {
-                        System.out.print("Enter name of the pet you want to play with: ");
-                        String petName = scanner.next();
-                        String formattedName = petName.substring(0, 1).toUpperCase()
-                                + petName.substring(1).toLowerCase();
-                        if (pets.hasPetName(formattedName)) {
-                            System.out.println(pets.playPet(formattedName));
-                            break;
-                        } else {
-                            System.out.println("Entered pet name does not exist!");
-                        }
-                    }
-                } else if (input == 2)
+                scanner.nextLine();
+                if (input == 1)
+                    playSinglePet();
+                else if (input == 2)
                     System.out.println(pets.playAll());
                 else {
                     System.out.println("");
@@ -159,7 +146,6 @@ public class VirtualPetShelterApp {
     }
 
     private static void inputChecker() {
-
         while (!scanner.hasNextInt()) {
             System.out.println("Please enter a number!");
             System.out.print("> ");
@@ -174,6 +160,21 @@ public class VirtualPetShelterApp {
             if (!pets.hasPetName(formattedName))
                 return formattedName;
             System.out.print("Pet name already exist! Please enter a different name: ");
+        }
+    }
+
+    public static void playSinglePet() {
+        while (true) {
+            System.out.print("Enter name of the pet you want to play with: ");
+            String petName = scanner.nextLine();
+            String formattedName = petName.substring(0, 1).toUpperCase()
+                    + petName.substring(1).toLowerCase();
+            if (pets.hasPetName(formattedName)) {
+                System.out.println(pets.playPet(formattedName));
+                break;
+            } else {
+                System.out.println("Entered pet name does not exist!");
+            }
         }
     }
 
