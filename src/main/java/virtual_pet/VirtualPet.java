@@ -30,6 +30,7 @@ public class VirtualPet {
         this.thirst = thirst;
         this.tiredness = tiredness;
         this.boredom = boredom;
+        this.sickness = sickness;
     }
 
     public String getName() {
@@ -103,7 +104,7 @@ public class VirtualPet {
                 setThirst(getThirst() + value);
                 return getName() + " ate on his own.";
             }
-            return "";
+            return getName() + " has reached it's starvation limit.";
         }
     }
 
@@ -114,7 +115,7 @@ public class VirtualPet {
         else {
             if (getThirst() <= 100)
                 return getName() + " drank water on his own.";
-            return "";
+            return getName() + " has reached it's dehydration limit.";
         }
     }
 
@@ -133,7 +134,7 @@ public class VirtualPet {
                 setBoredom(getBoredom() + value);
                 return getName() + " took a nap on his own.";
             }
-            return "";
+            return getName() + " has reached it's tiredness limit.";
         }
     }
 
@@ -158,7 +159,7 @@ public class VirtualPet {
                 setSickness(getSickness() + value);
                 return getName() + " played on his own.";
             }
-            return "";
+            return getName() + " has reached it's boredom limit.";
         }
     }
 
@@ -173,20 +174,20 @@ public class VirtualPet {
         else {
             if (getSickness() <= 100)
                 return getName() + " self medicated.";
-            return "";
+            return getName() + " has reached it's sickness limit.";
         }
     }
 
     public String displayStats() {
-        return getName() + "\t    |" + getHunger() + "%         |" + getThirst() + "%         |" + getTiredness()
-                + "%         |" + getBoredom() + "%         |" + getSickness() + "%          |";
+        return getName() + "\t\t|" + getHunger() + "%\t\t|" + getThirst() + "%\t\t|" + getTiredness()
+                + "%\t\t|" + getBoredom() + "%\t\t|" + getSickness() + "%\t\t|";
     }
 
     public String performPriorityNeed() {
         int[] arr = { getHunger(), getThirst(), getTiredness(), getBoredom(), getSickness() };
-        int max = 0;
+        int max = arr[0];
         int index = 0;
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 1; i < arr.length; i++) {
             if (arr[i] > max) {
                 max = arr[i];
                 index = i;

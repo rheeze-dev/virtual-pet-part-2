@@ -8,39 +8,17 @@ public class VirtualPetShelterApp {
     static VirtualPetShelter pets = new VirtualPetShelter();
 
     public static void main(String[] args) {
-
         initialPets();
-
-        System.out.println("Status of your pets: ");
+        System.out.println("Thank you for volunteering at Big Al's Virtual Pet Shelter!");
         while (pets.areValuesLessThan100()) {
-            System.out.println("Name        |Hunger      |Thrist      |Tiredness   |Boredom     |Sickness    |");
-            System.out.println("------------|------------|------------|------------|------------|------------|");
-            System.out.println(pets.displayStatsAll());
-            System.out.println("What do you want to do?");
-            System.out.println("1. Give food to pets");
-            System.out.println("2. Give water to pets");
-            System.out.println("3. Make pets rest");
-            System.out.println("4. Play with pets");
-            System.out.println("5. Cure pets");
-            System.out.println("6. Do nothing");
-            System.out.println("7. Rescue a pet");
-            System.out.println("8. Adopt a pet");
-            System.out.println("Enter any number except 1 to 8 to quit the game.");
-            System.out.println();
-            System.out.print("> ");
-
+            System.out.println("Status of your pets: ");
+            System.out.println(pets.displayAllStats());
+            promptGameMenu();
             inputChecker();
-
             int toDo = scanner.nextInt();
             System.out.println();
             if (toDo == 1) {
-                System.out.println("Choose food you want to feed the pets.");
-                System.out.println("1. Pet food");
-                System.out.println("2. Treats");
-                System.out.println("3. Left-overs");
-                System.out.println("Press any number except 1 to 3 to change what you want to do.");
-                System.out.println();
-                System.out.print("> ");
+                promptFoodOptions();
                 inputChecker();
                 int food = scanner.nextInt();
                 System.out.println();
@@ -51,7 +29,7 @@ public class VirtualPetShelterApp {
                     System.out.println("Treats are pets 2nd favorite food.");
                     System.out.println(pets.feedAll(20));
                 } else if (food == 3) {
-                    System.out.println("Left-overs are pets worst food. Pet refused to eat it.");
+                    System.out.println("Left-overs are pets worst food. The pets refused to eat it.\n");
                 } else
                     continue;
             } else if (toDo == 2)
@@ -64,9 +42,11 @@ public class VirtualPetShelterApp {
                 inputChecker();
                 int input = scanner.nextInt();
                 scanner.nextLine();
-                if (input == 1)
+                if (input == 1) {
+                    System.out.print("Pet names: ");
+                    System.out.println(pets.getAllPetNames());
                     playSinglePet();
-                else if (input == 2)
+                } else if (input == 2)
                     System.out.println(pets.playAll());
                 else {
                     System.out.println("");
@@ -90,43 +70,15 @@ public class VirtualPetShelterApp {
                 String petName = petNameChecker();
                 System.out.print("Please enter Pet's description: ");
                 String description = scanner.nextLine();
-                if (input == 1) {
-                    System.out.print("Please enter Pet's hunger level (any number from 0 to 99): ");
-                    int hunger = scanner.nextInt();
-                    System.out.print("Please enter Pet's thirst level (any number from 0 to 99): ");
-                    int thirst = scanner.nextInt();
-                    System.out.print("Please enter Pet's tiredness level (any number from 0 to 99): ");
-                    int tiredness = scanner.nextInt();
-                    System.out.print("Please enter Pet's boredom level (any number from 0 to 99): ");
-                    int boredom = scanner.nextInt();
-                    System.out.print("Please enter Pet's sickness level (any number from 0 to 99): ");
-                    int sickness = scanner.nextInt();
+                if (input == 1)
+                    promptAdditionalDetails(petName, description);
+                else {
                     System.out.println();
-                    pets.addPet(new VirtualPet(petName, description, hunger, thirst, tiredness, boredom, sickness));
-                } else {
-                    pets.addPet(new VirtualPet(petName, description));
+                    pets.rescuePet(new VirtualPet(petName, description));
                 }
             } else if (toDo == 8) {
-                for (VirtualPet pet : pets.getAllPets()) {
-                    System.out.println("Pet name: " + pet.getName() + ", Pet description: " + pet.getDescription());
-                }
-                System.out.print(
-                        "Please enter the name of the pet you want to adopt or press 0 to exit adoption process: ");
-                String formattedName;
-                scanner.nextLine();
-                while (true) {
-                    String name = scanner.nextLine();
-                    formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-                    if (pets.hasPetName(formattedName)) {
-                        pets.adoptPet(formattedName);
-                        System.out.println("You have adopted " + formattedName + "\n");
-                        break;
-                    } else if (formattedName.equalsIgnoreCase("0")) {
-                        System.out.println("You discontinued the adoption process.\n");
-                        break;
-                    }
-                    System.out.print("Pet name you entered does not exist! Please type it correctly: ");
-                }
+                promptAdoptPet();
+                adoptionChecker();
             } else {
                 System.out.println("The game has been closed!");
                 break;
@@ -138,9 +90,7 @@ public class VirtualPetShelterApp {
             pets.tickAll();
             System.out.println(pets.performPriorityNeedAll());
         }
-
         System.out.println(pets.displayMessage());
-
         System.out.println(pets.displayPet());
         scanner.close();
     }
@@ -153,7 +103,7 @@ public class VirtualPetShelterApp {
         }
     }
 
-    public static String petNameChecker() {
+    private static String petNameChecker() {
         while (true) {
             String name = scanner.nextLine();
             String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
@@ -163,7 +113,23 @@ public class VirtualPetShelterApp {
         }
     }
 
-    public static void playSinglePet() {
+    private static void adoptionChecker() {
+        while (true) {
+            String name = scanner.nextLine();
+            String formattedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+            if (pets.hasPetName(formattedName)) {
+                pets.adoptPet(formattedName);
+                System.out.println("You have adopted " + formattedName + "\n");
+                break;
+            } else if (formattedName.equalsIgnoreCase("0")) {
+                System.out.println("You discontinued the adoption process.\n");
+                break;
+            }
+            System.out.print("Pet name you entered does not exist! Please type it correctly: ");
+        }
+    }
+
+    private static void playSinglePet() {
         while (true) {
             System.out.print("Enter name of the pet you want to play with: ");
             String petName = scanner.nextLine();
@@ -178,8 +144,58 @@ public class VirtualPetShelterApp {
         }
     }
 
-    public static void initialPets() {
-        pets.addPet(new VirtualPet("Mali", "The monkey", 10, 20, 30, 40, 50));
-        pets.addPet(new VirtualPet("Kupa", "Hybrid Wolf", 50, 40, 30, 20, 10));
+    private static void initialPets() {
+        pets.rescuePet(new VirtualPet("Mali", "The monkey", 10, 20, 30, 40, 50));
+        pets.rescuePet(new VirtualPet("Kupa", "Big brown Wolf", 50, 40, 30, 20, 10));
+    }
+
+    private static void promptGameMenu() {
+        System.out.println("What do you want to do?");
+        System.out.println("1. Give food to pets");
+        System.out.println("2. Give water to pets");
+        System.out.println("3. Make pets rest");
+        System.out.println("4. Play with pets");
+        System.out.println("5. Cure pets");
+        System.out.println("6. Do nothing");
+        System.out.println("7. Rescue a pet");
+        System.out.println("8. Adopt a pet");
+        System.out.println("Enter any number except 1 to 8 to quit the game.");
+        System.out.println();
+        System.out.print("> ");
+    }
+
+    private static void promptFoodOptions() {
+        System.out.println("Choose food you want to feed the pets.");
+        System.out.println("1. Pet food");
+        System.out.println("2. Treats");
+        System.out.println("3. Left-overs");
+        System.out.println("Press any number except 1 to 3 to change what you want to do.");
+        System.out.println();
+        System.out.print("> ");
+    }
+
+    private static void promptAdditionalDetails(String petName, String description) {
+        System.out.print("Please enter Pet's hunger level (any number from 0 to 99): ");
+        int hunger = scanner.nextInt();
+        System.out.print("Please enter Pet's thirst level (any number from 0 to 99): ");
+        int thirst = scanner.nextInt();
+        System.out.print("Please enter Pet's tiredness level (any number from 0 to 99): ");
+        int tiredness = scanner.nextInt();
+        System.out.print("Please enter Pet's boredom level (any number from 0 to 99): ");
+        int boredom = scanner.nextInt();
+        System.out.print("Please enter Pet's sickness level (any number from 0 to 99): ");
+        int sickness = scanner.nextInt();
+        System.out.println();
+        pets.rescuePet(new VirtualPet(petName, description, hunger, thirst, tiredness, boredom, sickness));
+    }
+
+    private static void promptAdoptPet() {
+        for (VirtualPet pet : pets.getAllPets()) {
+            System.out.println("Pet name: " + pet.getName() + ", Pet description: " + pet.getDescription());
+        }
+        System.out.println();
+        System.out.print(
+                "Please enter the name of the pet you want to adopt or press 0 to exit adoption process: ");
+        scanner.nextLine();
     }
 }

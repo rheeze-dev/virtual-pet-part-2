@@ -3,6 +3,7 @@ package virtual_pet;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class VirtualPetShelter {
 
@@ -16,7 +17,11 @@ public class VirtualPetShelter {
         return pets.get(name);
     }
 
-    public void addPet(VirtualPet newPet) {
+    public Set<String> getAllPetNames() {
+        return pets.keySet();
+    }
+
+    public void rescuePet(VirtualPet newPet) {
         pets.put(newPet.getName(), newPet);
     }
 
@@ -92,19 +97,20 @@ public class VirtualPetShelter {
     }
 
     public String displayMessage() {
+        StringBuilder str = new StringBuilder();
         for (VirtualPet pet : getAllPets()) {
             if (pet.getHunger() >= 100)
-                return "Mali starved!";
-            else if (pet.getThirst() >= 100)
-                return "Mali got dehydrated!";
-            else if (pet.getTiredness() >= 100)
-                return "Mali got soo tired!";
-            else if (pet.getBoredom() >= 100)
-                return "Mali got soo bored!";
-            else if (pet.getSickness() >= 100)
-                return "Mali got soo sick!";
+                str.append(pet.getName() + " starved!\n");
+            if (pet.getThirst() >= 100)
+                str.append(pet.getName() + " got dehydrated!\n");
+            if (pet.getTiredness() >= 100)
+                str.append(pet.getName() + " got soo tired!\n");
+            if (pet.getBoredom() >= 100)
+                str.append(pet.getName() + " got soo bored!\n");
+            if (pet.getSickness() >= 100)
+                str.append(pet.getName() + " got soo sick!\n");
         }
-        return "";
+        return str.toString();
     }
 
     public String performPriorityNeedAll() {
@@ -115,8 +121,10 @@ public class VirtualPetShelter {
         return str.toString();
     }
 
-    public String displayStatsAll() {
+    public String displayAllStats() {
         StringBuilder str = new StringBuilder();
+        str.append("Name\t\t|Hunger\t\t|Thirst\t\t|Tiredness\t|Boredom\t|Sickness\t|\n"
+                + "----------------|---------------|---------------|---------------|---------------|---------------|\n");
         for (VirtualPet pet : getAllPets()) {
             str.append(pet.displayStats() + "\n");
         }
